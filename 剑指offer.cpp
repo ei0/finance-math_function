@@ -90,3 +90,121 @@ void replaceSpace(char* str, int length) //剑指offer 2替换字符串中的空格
 	//	--pStr1;
 	//}
 }
+struct ListNode {
+	int val;
+	struct ListNode* next;
+	ListNode(int x) :
+		val(x), next(NULL) {
+	}
+};
+
+vector<int> printListFromTailToHead(ListNode* head) {//剑指offer 3链表逆序输出
+	ListNode* tmp;
+	vector<int> num;
+	for (tmp = head; tmp; tmp = tmp->next)
+	{
+		num.push_back(tmp->val);
+	}
+	vector<int> num1;
+	auto e = num.rbegin();
+	for (e; e != num.rend(); e++)
+	{
+		num1.push_back(*e);
+	}
+	return num1;
+}
+//利用数组做
+
+
+struct TreeNode {
+	int val;
+	TreeNode* left;
+	TreeNode* right;
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+//
+//TreeNode* Tree_son(vector<int> pre_part, vector<int> vin_part)
+//{
+//	TreeNode* head_p = new TreeNode(0);
+//	TreeNode* tmp_c = head_p;
+//	int k = -1,m = 0;
+//	for (int i = 0; i < pre_part.size() ; i++)
+//	{
+//		for (int j = 0; j < vin_part.size(); j++)
+//		{
+//			if (pre_part[i] == vin_part[j])
+//			{
+//				if (k < 0)
+//				{
+//					k = j;
+//					m = k;
+//				}
+//				if (m > 0 && m < vin_part.size()-1)
+//				{
+//					auto pre_i = pre_part.begin();
+//					auto vin_i = vin_part.begin();
+//					tmp_c->left = Tree_son(vector<int>(pre_i , pre_i + k + 1), vector<int>(vin_i, vin_i + k+1));
+//					if(tmp_c->left->right == NULL)
+//						tmp_c->left->right = Tree_son(vector<int>(pre_i + k + 1, pre_part.end()), vector<int>(vin_i + k+1, vin_part.end()));
+//					else
+//						tmp_c->left->left = Tree_son(vector<int>(pre_i + k + 1, pre_part.end()), vector<int>(vin_i + k + 1, vin_part.end()));
+//					return head_p->left ? head_p->left : head_p->right;
+//				}
+//
+//				TreeNode* tmp = new TreeNode(vin_part[j]);
+//				if (j < k)
+//				{
+//					tmp_c->left = tmp;
+//					tmp_c = tmp_c->left;
+//					k = j;
+//				}
+//				else
+//				{
+//					tmp_c->right = tmp;
+//					tmp_c = tmp_c->right;
+//					k = j;
+//				}
+//
+//			}
+//
+//		}
+//	}
+//	return head_p->left ? head_p->left : head_p->right;
+//}
+//
+//TreeNode* reConstructBinaryTree(vector<int> pre, vector<int> vin) {
+//	if (pre.empty() || vin.empty())return 0;
+//	TreeNode* head = new TreeNode(pre[0]);
+//	int k = -1;
+//	for (int j = 0; j < vin.size() ; ++j)
+//	{
+//		if (pre[0] == vin[j])
+//		{
+//			k = j;
+//			break;
+//		}
+//	}
+//	auto pre_i = pre.begin();
+//	auto vin_i = vin.begin();
+//	head->left = Tree_son(vector<int>(pre_i+1 , pre_i + k+1), vector<int>(vin_i, vin_i+k));
+//	head->right = Tree_son(vector<int>(pre_i + k + 1, pre.end()), vector<int>(vin_i + k+1, vin.end()));
+//	return head;
+//}
+TreeNode* reConstructBinaryTree(vector<int> pre, vector<int> vin) {//剑指offer 4重组二叉树，给出前序和中序
+	if (pre.empty() || vin.empty())return 0;
+	TreeNode* head = new TreeNode(pre[0]);
+	int k = -1;
+	for (int j = 0; j < vin.size(); ++j)
+	{
+		if (pre[0] == vin[j])
+		{
+			k = j;
+			break;
+		}
+	}
+	auto pre_i = pre.begin();
+	auto vin_i = vin.begin();
+	head->left = reConstructBinaryTree(vector<int>(pre_i + 1, pre_i + k + 1), vector<int>(vin_i, vin_i + k));
+	head->right = reConstructBinaryTree(vector<int>(pre_i + k + 1, pre.end()), vector<int>(vin_i + k + 1, vin.end()));
+	return head;
+}
