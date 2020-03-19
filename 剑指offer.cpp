@@ -208,3 +208,65 @@ TreeNode* reConstructBinaryTree(vector<int> pre, vector<int> vin) {//剑指offer 4
 	head->right = reConstructBinaryTree(vector<int>(pre_i + k + 1, pre.end()), vector<int>(vin_i + k + 1, vin.end()));
 	return head;
 }
+
+class Solution//剑指offer 5用栈实现队列
+{
+public:
+	void push(int node) {
+		stack1.push(node);
+	}
+
+	int pop() {
+		while (!stack1.empty())
+		{
+			stack2.push(stack1.top());
+			stack1.pop();
+		}
+		int tmp = 0;
+		tmp = stack2.top();
+		stack2.pop();
+		while (!stack2.empty())
+		{
+			stack1.push(stack2.top());
+			stack2.pop();
+		}
+		return tmp;
+	}
+
+private:
+	stack<int> stack1;
+	stack<int> stack2;
+};
+int Fibonacci(int n) {//剑指offer 7斐波那契数列
+	int cur = 0;
+	int f0 = 0, f1 = 1;
+	if (n == 0 || n == 1) return n;
+	while (n - 1)
+	{
+		cur = f0 + f1;
+		f0 = f1;
+		f1 = cur;
+		n--;
+	}
+	return cur;
+}
+int Fibonacci_di(int n) {//剑指offer 7斐波那契数列递归版
+
+	if (n == 0 || n == 1)
+		return n;
+	else
+		return Fibonacci_di(n - 2) + Fibonacci_di(n - 1);
+}
+int jumpFloor(int n) {//剑指offer 8跳台阶---一次一格或两个
+	int cur = 0;
+	int f0 = 1, f1 = 1;
+	if (n == 0 || n == 1) return n;
+	while (n - 1)
+	{
+		cur = f0 + f1;
+		f0 = f1;
+		f1 = cur;
+		n--;
+	}
+	return cur;
+}
