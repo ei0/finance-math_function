@@ -270,3 +270,28 @@ int jumpFloor(int n) {//剑指offer 8跳台阶---一次一格或两个
 	}
 	return cur;
 }
+
+int jumpFloorII(int number)//剑指offer 9跳台阶--一次随意格
+{
+	if (number <= 0)
+		return -1;
+	if (number == 1 || number == 2)
+		return number;
+	return 2 * jumpFloorII(number - 1);
+}
+int rectCover(int number) {//剑指offer 10矩形覆盖
+	//我们可以用2 * 1的小矩形横着或者竖着去覆盖更大的矩形。
+	//请问用n个2 * 1的小矩形无重叠地覆盖一个2 * n的大矩形，总共有多少种方法
+	//斐波那契数列问题变种
+	int cur = 0;
+	int f0 = 1, f1 = 1;
+	if (number == 0 || number == 1) return number;
+	while (number - 1)
+	{
+		cur = f0 + f1;
+		f0 = f1;
+		f1 = cur;
+		number--;
+	}
+	return cur;
+}
