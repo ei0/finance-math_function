@@ -295,3 +295,32 @@ int rectCover(int number) {//剑指offer 10矩形覆盖
 	}
 	return cur;
 }
+
+int  NumberOf1(int n) {//剑指offer 11一个数的二进制表示中1的个数
+	size_t num = n;
+	int count = 0;
+	for (int i = 0; i < 32; ++i, num = num / 2)
+	{
+		if (num % 2 == 1)
+			count++;
+	}
+	return count;
+}
+double Power(double base, int exponent) {//剑指offer 12求base的exp次方
+	if (exponent == 0)
+		return 1;
+	if (base == 0)
+		return 0;
+	double sum = 1;
+	if (exponent > 0) {
+		for (; exponent > 0; exponent--)
+			sum *= base;
+		return sum;
+	}
+	else {
+		for (; exponent < 0; exponent++)
+			sum *= base;
+		sum = 1 / sum;
+		return sum;
+	}
+}
