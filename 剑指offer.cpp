@@ -324,3 +324,30 @@ double Power(double base, int exponent) {//剑指offer 12求base的exp次方
 		return sum;
 	}
 }
+
+void reOrderArray(vector<int>& array) {//剑指offer 13数组中奇数位于前半部分，偶数位于后半部分
+	vector<int> left_a, right_a;
+	for (auto e : array)
+	{
+		if (e % 2 != 0)
+			left_a.push_back(e);
+		else
+			right_a.push_back(e);
+	}
+	for (auto& e : right_a)
+	{
+		left_a.push_back(e);
+	}
+	swap(array, left_a);
+}
+ListNode* FindKthToTail(ListNode* pListHead, unsigned int k) {//剑指offer 14链表中倒数第k个节点
+	stack<ListNode*> p;
+	for (auto tmp = pListHead; tmp; tmp = tmp->next)
+		p.push(tmp);
+	p.push(nullptr);
+	if (p.size() < k)
+		return nullptr;
+	for (k; k > 0; k--)
+		p.pop();
+	return p.top();
+}
