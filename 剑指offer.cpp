@@ -351,3 +351,48 @@ ListNode* FindKthToTail(ListNode* pListHead, unsigned int k) {//剑指offer 14链表
 		p.pop();
 	return p.top();
 }
+ListNode* ReverseList(ListNode* pHead) {//剑指offer 15 反转链表
+	if (!pHead || !pHead->next)
+		return pHead;
+	ListNode* tmp;
+	stack<ListNode*> p1;
+	for (tmp = pHead; tmp; tmp = tmp->next) {
+		p1.push(tmp);
+	}
+	tmp = p1.top();
+	p1.pop();
+	ListNode* head = tmp;
+	while (!p1.empty()) {
+		tmp->next = p1.top();
+		tmp = tmp->next;
+		p1.pop();
+	}
+	tmp->next = nullptr;
+	return head;
+}
+ListNode* Merge(ListNode* pHead1, ListNode* pHead2)//剑指offer 15两递增链表合并
+{
+	ListNode* tmp;
+	ListNode* tmp1 = pHead1;
+	ListNode* tmp2 = pHead2;
+	ListNode* head;
+	if (!tmp1 || !tmp2) {
+		return tmp1 ? tmp1 : tmp2;
+	}
+	if (tmp1->val > tmp2->val) {
+		swap(tmp1, tmp2);
+	}
+	head = tmp1;
+	tmp1 = tmp1->next;
+	for (tmp = head; ; tmp = tmp->next) {
+		if (!tmp1 || !tmp2) {
+			tmp1 ? tmp->next = tmp1 : tmp->next = tmp2;
+			break;
+		}
+		if (tmp1->val > tmp2->val)
+			swap(tmp1, tmp2);
+		tmp->next = tmp1;
+		tmp1 = tmp1->next;
+	}
+	return head;
+}
